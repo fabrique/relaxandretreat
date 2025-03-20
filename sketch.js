@@ -14,7 +14,7 @@ let colors = ["#5AC2F6", "#FFAEEB", "#FFFD75", "#695AF6", "#FFFFFF", "#6ABE6C"];
 function preload() {
   weather = loadJSON(apiUrl, updateWind);
 
-  bgImg = loadImage("assets/your-image.jpg", () => {
+  bgImg = loadImage("assets/chateau.jpg", () => {
     console.log("✅ Background image loaded.");
     bgLoaded = true;
     checkIfImagesReady(); // ✅ Check if both images are ready
