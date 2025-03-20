@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "FKGrotesk";
+  src: url("assets/FKGrotesk-Thin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "JTPercy";
+  src: url("assets/JTPercy-Italic.otf") format("opentype");
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: "FKGrotesk", sans-serif;
+  background: black; /* Prevents white flash */
+}
+
+/* ✅ Canvas should cover everything */
+canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1; /* Keeps bubbles, text, and background together */
+  pointer-events: none; /* Prevents interaction blocking */
+}
+
+.terminal-text {
+  font-family: 'JTPercy';
+  font-feature-settings: "ss01", "calt", "liga";
+}
