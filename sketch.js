@@ -111,7 +111,7 @@ function draw() {
 // ✅ Convert Wind Direction & Speed to a Force Vector
 function updateWind(data) {
   let windAngle = radians(data.wind.deg + 180); // ✅ Flip to match p5.js physics
-  windForce = p5.Vector.fromAngle(windAngle).mult(data.wind.speed * 0.25); // ✅ Reduce wind effect
+  windForce = p5.Vector.fromAngle(windAngle).mult(data.wind.speed * 0.1); // ✅ Reduce wind effect
 }
 
 
@@ -257,19 +257,32 @@ class Bubble {
 }
 
 setInterval(() => {
-  // if (bubbles.length >= 50) {
-  //   console.log("💥 Resetting bubbles!"); // ✅ Debug message
-  //   bubbles = []; // ✅ Clears all bubbles
-  // }
+  if (bubbles.length >= 50) {
+    console.log("💥 Resetting bubbles!"); // ✅ Debug message
+    bubbles = []; // ✅ Clears all bubbles
+  }
 
   let col = color(random(colors));
   col.setAlpha(150);
-  bubbles.push(new Bubble(random(width), random(height), random(15, 400), col)); // ✅ Bubble size
-}, 400); // ✅ Bubble appears every x seconds
+  bubbles.push(new Bubble(random(width), random(height), random(10, 300), col)); // ✅ Bubble size
+}, 300); // ✅ Bubble appears every x seconds
 
 
-function mousePressed() {
-  let col = color(random(colors));
-  col.setAlpha(150);
-  bubbles.push(new Bubble(mouseX, mouseY, random(15, 250), col)); // ✅ Spawn at mouse click position
+// function mousePressed() {
+//   let col = color(random(colors));
+//   col.setAlpha(150);
+//   bubbles.push(new Bubble(mouseX, mouseY, random(10, 300), col)); // ✅ Spawn at mouse click position
+// }
+
+function mouseMoved() {
+  for (let i = bubbles.length - 1; i >= 0; i--) {
+      let b = bubbles[i];
+      let d = dist(mouseX, mouseY, b.pos.x, b.pos.y);
+      
+      if (d < b.r) {
+          console.log(`💥 Popped bubble at x=${b.pos.x}, y=${b.pos.y}`);
+          bubbles.splice(i, 1); // ✅ Remove only one bubble
+          break; // ✅ Stop the loop after removing one
+      }
+  }
 }
