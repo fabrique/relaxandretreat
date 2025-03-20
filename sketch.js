@@ -257,7 +257,7 @@ class Bubble {
 }
 
 setInterval(() => {
-  if (bubbles.length >= 50) {
+  if (bubbles.length >= 20) {
     console.log("💥 Resetting bubbles!"); // ✅ Debug message
     bubbles = []; // ✅ Clears all bubbles
   }
