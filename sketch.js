@@ -21,7 +21,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  pixelDensity(2);
+  pixelDensity(1);
 
   preRenderedBg = createGraphics(width, height);
   drawFullBackground(preRenderedBg);
@@ -37,7 +37,7 @@ function setup() {
   for (let i = 0; i < 10; i++) {
     let x = random(width);
     let y = random(height);
-    let r = random(20, 200);
+    let r = random(20, 300);
     let col = color(random(colors));
     col.setAlpha(150);
     bubbles.push(new Bubble(x, y, r, col));
@@ -152,7 +152,7 @@ setInterval(() => {
   bubbles[randomIndex].redefine(
     random(width),
     random(height),
-    random(20, 200),
+    random(20, 300),
     color(random(colors))
   );
 }, 300);

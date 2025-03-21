@@ -16,6 +16,12 @@ class Bubble {
     this.col = col || color(255, 150);
   }
 
+  isMouseNear() {
+    let mousePos = createVector(mouseX, mouseY);
+    let distance = p5.Vector.dist(this.pos, mousePos);
+    return distance < this.r * 0.5; // Check if mouse is within the bubble
+  }
+
   applyForce(force) {
     if (!force || force.mag() < 0.05) return;
     this.vel.add(force);
@@ -105,6 +111,12 @@ class Bubble {
     drawingContext.save();
     drawingContext.filter = "blur(3px)";
     fill(this.col);
+    
+    // If mouse is near, redraw the bubble
+    if (this.isMouseNear()) {
+      this.redefine(random(width), random(height), random(20, 300), color(255, 150));
+    }
+    
     this.drawRadialGradient();
     drawingContext.filter = "none";
     drawingContext.restore();
