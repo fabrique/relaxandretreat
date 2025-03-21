@@ -30,25 +30,24 @@
         height: 100%;
         object-fit: cover;
       }
-      .mobile .title-image {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        max-width: 80%;
+      .mobile .content {
+        position: relative;
         z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50vh;
+      }
+      .mobile .title-image {
+        max-width: 80%;
+        margin-bottom: 20px;
       }
       .mobile .message {
-        position: absolute;
-        bottom: 20px;
-        left: 0;
-        width: 100%;
-        padding: 20px;
-        z-index: 3;
+        text-align: center;
       }
       .mobile h1 {
         font-family: "JTPercy", sans-serif;
-        font-size: 28px;
+        font-size: 22px;
         margin-bottom: 10px;
       }
       .mobile p {
@@ -81,10 +80,12 @@
     </script>
     <div class="mobile">
       <img src="assets/chateau.jpg" alt="Chateau" class="background-image">
-      <img src="assets/title.png" alt="Title" class="title-image">
-      <div class="message">
-        <h1>Sorry, this site is not optimized for mobile devices.</h1>
-        <p>Please your big screen for a full experience.</p>
+      <div class="content">
+        <img src="assets/title.png" alt="Title" class="title-image">
+        <div class="message">
+          <h1>Sorry, this site is not optimized for mobile devices.</h1>
+          <p>Please use your big screen for a full experience.</p>
+        </div>
       </div>
     </div>  
   </body>
