@@ -133,7 +133,7 @@ function drawTextOnBuffer(gfx) {
 
     gfx.textAlign(LEFT);
     gfx.fill(r, g, b);
-    gfx.textSize(40);
+    gfx.textSize(28);
     gfx.textFont("JTPercy");
     gfx.text(
       `« Maastricht is ${weather.main.temp} degrees now, wind blowing: ${

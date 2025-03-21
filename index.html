@@ -6,9 +6,86 @@
     <script src="./p5.sound.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      .mobile {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        z-index: 2;
+        color: white;
+        text-align: center;
+        padding: 0;
+        overflow: hidden;
+      }
+      .mobile .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .mobile .title-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 80%;
+        z-index: 3;
+      }
+      .mobile .message {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        z-index: 3;
+      }
+      .mobile h1 {
+        font-family: "JTPercy", sans-serif;
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+      .mobile p {
+        font-family: "FKGrotesk", sans-serif;
+        font-size: 16px;
+      }
+      @media (max-width: 768px) {
+        .mobile {
+          display: block;
+        }
+        .desktop {
+          display: none;
+        }
+      }
+    </style>
   </head>
   <body>
-    <script src="sketch.js"></script>
-</body>
+    <script>
+      // Only load sketch.js on desktop
+      function isMobile() {
+        return (window.matchMedia && window.matchMedia('(max-width: 768px)').matches);
+      }
+      
+      if (!isMobile()) {
+        const script = document.createElement('script');
+        script.src = 'sketch.js';
+        script.className = 'desktop';
+        document.body.appendChild(script);
+      }
+    </script>
+    <div class="mobile">
+      <img src="assets/chateau.jpg" alt="Chateau" class="background-image">
+      <img src="assets/title.png" alt="Title" class="title-image">
+      <div class="message">
+        <h1>Sorry, this site is not optimized for mobile devices.</h1>
+        <p>Please visit us on a desktop computer for the full experience.</p>
+      </div>
+    </div>  
+  </body>
 </html>
