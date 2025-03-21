@@ -21,10 +21,11 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  pixelDensity(1);
+
   preRenderedBg = createGraphics(width, height);
   drawFullBackground(preRenderedBg);
 
-  // Precompute Multiple Blur Levels Once
   for (let i = 0; i <= 5; i++) {
     let blurCanvas = createGraphics(width, height);
     blurCanvas.image(preRenderedBg, 0, 0, width, height);
@@ -32,6 +33,15 @@ function setup() {
     blurLevels.push(blurCanvas);
   }
 
+  // Initialize bubbles
+  for (let i = 0; i < 10; i++) {
+    let x = random(width);
+    let y = random(height);
+    let r = random(20, 60);
+    let col = color(random(colors));
+    col.setAlpha(150);
+    bubbles.push(new Bubble(x, y, r, col));
+  }
 }
 
 function getWindDirection(degrees) {
@@ -54,7 +64,7 @@ function draw() {
     let b = 0;
 
     fill(r, g, b);
-    textSize(24);
+    textSize(40);
     textFont("JTPercy");
     text(
       `« Maastricht is ${weather.main.temp} degrees now, wind blowing: ${
@@ -133,12 +143,13 @@ function drawTextOnBuffer(gfx) {
 }
 
 setInterval(() => {
-  if (bubbles.length >= 10) {
-    console.log("💥 Resetting bubbles!");
-    bubbles = [];
-  }
-
-  let col = color(random(colors));
-  col.setAlpha(150);
-  bubbles.push(new Bubble(random(width), random(height), random(10, 300), col));
+  // Redraw one random bubble
+  let randomIndex = Math.floor(random(bubbles.length));
+  console.log(bubbles);
+  bubbles[randomIndex].redefine(
+    random(width),
+    random(height),
+    random(20, 60),
+    color(random(colors))
+  );
 }, 300);

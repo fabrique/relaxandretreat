@@ -2,23 +2,29 @@ class Bubble {
   constructor(x, y, r, col) {
     this.pos = createVector(x, y);
     this.r = r || random(10, 50);
-    this.vel = createVector(0, 0); // ✅ Bubbles start at rest
+    this.vel = createVector(0, 0);
 
-    this.acc = createVector(0, 0); // ✅ Initialize acceleration
+    this.acc = createVector(0, 0);
+    this.col = col || color(255, 150);
+  }
+  
+  redefine(x, y, r, col) {
+    this.pos = createVector(x, y);
+    this.r = r || random(10, 50);
+    this.vel = createVector(0, 0);
+    this.acc = createVector(0, 0);
     this.col = col || color(255, 150);
   }
 
   applyForce(force) {
     if (!force || force.mag() < 0.05) return;
-    this.vel.add(force); // ✅ Apply wind to velocity
+    this.vel.add(force);
   }
 
   move() {
     this.vel.add(this.acc);
     this.vel.limit(3);
     this.pos.add(this.vel);
-    // this.acc.mult(0);
-    // this.edges();
   }
 
   edges() {
