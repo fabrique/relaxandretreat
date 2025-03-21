@@ -145,6 +145,14 @@ function drawTextOnBuffer(gfx) {
   }
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  
+  // Recreate the background graphics at new size
+  preRenderedBg = createGraphics(width, height);
+  drawFullBackground(preRenderedBg);
+}
+
 setInterval(() => {
   // Redraw one random bubble
   let randomIndex = Math.floor(random(bubbles.length));
