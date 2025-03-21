@@ -70,8 +70,8 @@ function draw() {
       `« Maastricht is ${weather.main.temp} degrees now, wind blowing: ${
         weather.wind.speed
       } m/s in direction of ${getWindDirection(weather.wind.deg)} »`,
-      20,
-      30
+      30,
+      50
     );
   }
 
