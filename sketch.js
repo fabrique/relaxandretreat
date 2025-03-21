@@ -37,7 +37,7 @@ function setup() {
   for (let i = 0; i < 10; i++) {
     let x = random(width);
     let y = random(height);
-    let r = random(20, 60);
+    let r = random(20, 200);
     let col = color(random(colors));
     col.setAlpha(150);
     bubbles.push(new Bubble(x, y, r, col));
@@ -56,24 +56,7 @@ function draw() {
   drawingContext.save();
   drawingContext.filter = "blur(1.5px)";
 
-  if (weather) {
-    let temp = constrain(weather.main.temp, 5, 40);
 
-    let r = 255;
-    let g = lerp(200, 0, temp / 40);
-    let b = 0;
-
-    fill(r, g, b);
-    textSize(40);
-    textFont("JTPercy");
-    text(
-      `« Maastricht is ${weather.main.temp} degrees now, wind blowing: ${
-        weather.wind.speed
-      } m/s in direction of ${getWindDirection(weather.wind.deg)} »`,
-      30,
-      50
-    );
-  }
 
   for (let b of bubbles) {
     if (windForce && frameCount % 2 === 0) {
@@ -95,6 +78,7 @@ function updateWind(data) {
 function drawFullBackground(gfx) {
   gfx.image(bgImg, 0, 0, width, height);
   drawGradientOverlay(gfx);
+  drawTextOnBuffer(gfx);
   if (titleImg && titleImg.width) {
     let maxWidth = width * 0.9;
     let scaleFactor = maxWidth / titleImg.width;
@@ -110,7 +94,6 @@ function drawFullBackground(gfx) {
   } else {
     console.warn("⚠️ titleImg is not loaded yet, skipping draw.");
   }
-  drawTextOnBuffer(gfx);
 }
 
 function drawGradientOverlay(gfx) {
@@ -140,6 +123,26 @@ function drawTextOnBuffer(gfx) {
 
   gfx.textAlign(RIGHT);
   gfx.text("04.04.2025 — 06.04.2025", width - 40, height - 40);
+
+  if (weather) {
+    let temp = constrain(weather.main.temp, 5, 40);
+
+    let r = 255;
+    let g = lerp(200, 0, temp / 40);
+    let b = 0;
+
+    gfx.textAlign(LEFT);
+    gfx.fill(r, g, b);
+    gfx.textSize(40);
+    gfx.textFont("JTPercy");
+    gfx.text(
+      `« Maastricht is ${weather.main.temp} degrees now, wind blowing: ${
+        weather.wind.speed
+      } m/s in direction of ${getWindDirection(weather.wind.deg)} »`,
+      30,
+      50
+    );
+  }
 }
 
 setInterval(() => {
@@ -149,7 +152,7 @@ setInterval(() => {
   bubbles[randomIndex].redefine(
     random(width),
     random(height),
-    random(20, 60),
+    random(20, 200),
     color(random(colors))
   );
 }, 300);
