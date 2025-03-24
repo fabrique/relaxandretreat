@@ -53,11 +53,17 @@ function getWindDirection(degrees) {
 
 function draw() {
   image(preRenderedBg, 0, 0, width, height);
+
+  // Draw the link text
+  text('Agenda', textX, textY);
+  
+  // Draw underline
+  let textWidthValue = textWidth('Agenda');
+  stroke(255);
+  line(textX, textY + 5, textX + textWidthValue, textY + 5);
+
   drawingContext.save();
   drawingContext.filter = "blur(1.5px)";
-
-
-
   for (let b of bubbles) {
     if (windForce && frameCount % 2 === 0) {
       b.applyForce(windForce);
@@ -68,6 +74,40 @@ function draw() {
   }
   drawingContext.filter = "none";
   drawingContext.restore();
+
+  if (imgVisible) {
+    drawImageOnTop();
+  }
+}
+
+function drawBubbles() {
+  // Example function to draw bubbles
+  fill(100, 150, 255, 150);
+  noStroke();
+  for (let i = 0; i < 10; i++) {
+    ellipse(random(width), random(height), 20, 20);
+  }
+}
+
+function drawImageOnTop() {
+  // Use the stored position and dimensions to draw the image
+  image(agendaImg, imgX, imgY, imgWidth, imgHeight);
+}
+
+function mousePressed() {
+  // Check if the mouse is over the text
+  let textWidthValue = textWidth('Agenda');
+  let textHeight = textSize(); // Use textSize to get the height of the text
+  if (mouseX > textX && mouseX < textX + textWidthValue && mouseY > textY - textHeight && mouseY < textY) {
+    imgVisible = !imgVisible;
+  }
+
+  // Check if the image is visible and if the mouse is over the image
+  if (imgVisible) {
+    if (mouseX > imgX && mouseX < imgX + imgWidth && mouseY > imgY && mouseY < imgY + imgHeight) {
+      imgVisible = false;
+    }
+  }
 }
 
 function updateWind(data) {
@@ -108,7 +148,7 @@ function drawGradientOverlay(gfx) {
 
 function drawTextOnBuffer(gfx) {
   gfx.fill(255);
-  gfx.textFont("JTPercy");
+  gfx.textFont(percy);
 
   gfx.textAlign(LEFT);
   gfx.textSize(28);
@@ -119,7 +159,7 @@ function drawTextOnBuffer(gfx) {
   gfx.text("Joseph Corneli Allee 1, 6301 KK Valkenburg", 40, height - 40);
 
   gfx.textAlign(CENTER);
-  gfx.text("Fabrique Trip", width / 2, height - 40);
+  gfx.text("Fabrique trip 2025", width / 2, height - 40);
 
   gfx.textAlign(RIGHT);
   gfx.text("04.04.2025 — 06.04.2025", width - 40, height - 40);
