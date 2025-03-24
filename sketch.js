@@ -160,7 +160,7 @@ setInterval(() => {
   bubbles[randomIndex].redefine(
     random(width),
     random(height),
-    random(20, 300),
+    random(20, 350),
     color(random(colors))
   );
 }, 300);
