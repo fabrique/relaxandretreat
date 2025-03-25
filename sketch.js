@@ -9,6 +9,7 @@ let bgImg,
   blurLevels = [];
 let bgLoaded = false,
   titleLoaded = false;
+let percy = "JTPercy";
 
 let colors = ["#5AC2F6", "#FFAEEB", "#FFFD75", "#695AF6", "#FFFFFF", "#6ABE6C"];
 let titleImg;
